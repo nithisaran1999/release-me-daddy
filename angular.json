@@ -3,5 +3,141 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "release-me-daddy": {
+      "projectType": "library",
+      "root": "projects/release-me-daddy",
+      "sourceRoot": "projects/release-me-daddy/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/release-me-daddy/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/release-me-daddy/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/release-me-daddy/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/release-me-daddy/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "release-me-daddy-showcase": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/release-me-daddy-showcase",
+      "sourceRoot": "projects/release-me-daddy-showcase/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/release-me-daddy-showcase",
+            "index": "projects/release-me-daddy-showcase/src/index.html",
+            "browser": "projects/release-me-daddy-showcase/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/release-me-daddy-showcase/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/release-me-daddy-showcase/public"
+              }
+            ],
+            "styles": [
+              "projects/release-me-daddy-showcase/src/styles.scss"
+            ],
+            "scripts": [],
+            "server": "projects/release-me-daddy-showcase/src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "projects/release-me-daddy-showcase/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "release-me-daddy-showcase:build:production"
+            },
+            "development": {
+              "buildTarget": "release-me-daddy-showcase:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/release-me-daddy-showcase/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/release-me-daddy-showcase/public"
+              }
+            ],
+            "styles": [
+              "projects/release-me-daddy-showcase/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "ec3bda1b-914b-476b-bf7b-5a096018473b"
   }
 }

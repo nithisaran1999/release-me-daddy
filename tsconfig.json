@@ -16,6 +16,11 @@
     "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
+    "paths": {
+      "release-me-daddy": [
+        "./dist/release-me-daddy"
+      ]
+    },
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
